@@ -1,0 +1,22 @@
+#poem {
+    font-family: Arial, sans-serif;
+    width: 800px;
+}
+
+body {
+    background-color: cornflowerblue;
+}
+
+#list {
+     text-align: center;
+}
+
+#myUl {
+    display: inline-block;
+    text-align: left;
+}
+
+#credit {
+    font-style: italic;
+    font-size: smaller;
+}

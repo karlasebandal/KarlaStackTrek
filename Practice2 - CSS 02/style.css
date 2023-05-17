@@ -1,0 +1,51 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color:burlywood;
+}
+
+.container {
+    display: block;
+    background-color: bisque;
+    border: 5px dashed black;
+    min-width: 200px;
+    width: 500px;
+    max-width: 1000px;
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#title {
+    text-align: center;
+    font-style: italic;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 25pt;
+}
+
+#list {
+    text-align: center;
+    font-size: 10px;
+    border-top-style: dashed;
+    border-top-width: 5px;
+    padding: 20px 10px 0px 10px;
+}
+
+#poem {
+    font-size: 14px;
+    font-style: italic;
+    font-family:Arial, Helvetica, sans-serif;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    line-height: 5px;
+}
+
+p::first-letter {
+    font-weight: bold;
+    font-size: larger;
+}
+
+#credit {
+    font-size: 10px;
+    padding-bottom: 10px;
+}

@@ -1,0 +1,29 @@
+.header {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+}
+
+.icon {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 20px;
+}
+
+.social {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    flex-grow: 4;
+    padding: 20px;
+}
+
+.contact {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-grow: 1;
+    padding: 20px;
+}

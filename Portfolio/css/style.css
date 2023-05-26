@@ -1,0 +1,147 @@
+* {
+    font-family: 'Nunito', sans-serif;
+    font-size: 1.4em;
+    color:dimgray;
+    text-align: center;
+    background: #F7ECDE;
+}
+
+.container {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+}
+
+.item {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+}
+
+/* HEADER */
+.icon {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    padding-left: 20px;
+   /* border-color: black;
+    border-style: solid;
+    border-width: 1px;*/
+}
+
+.social {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 40px;
+}
+
+#top-space {
+    padding-top: 20px;
+}
+/* END OF HEADER */
+
+/* BODY */
+#title {
+    display: flex;
+    flex-direction: column;
+}
+
+#body-center {
+    display: flex;
+    flex-direction: row;
+    flex: 1 3 100px;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Nunito Sans', sans-serif;
+}
+
+#client-body-center {
+    display: flex;
+    flex-direction: row wrap;
+    flex: 1 3 100px;
+    justify-content: flex-start;
+    align-items: center;
+    font-family: 'Nunito Sans', sans-serif;
+    padding: 20px;
+}
+
+#big-me {
+    font-size: 72pt;
+    font-weight: 800;
+    letter-spacing: 20pt;
+    font-family: 'Nunito Sans', sans-serif;
+}
+
+#dp {
+    align-items: center;
+    justify-content: center;
+    padding-top: 60px;
+}
+
+#client-dp {
+    align-self: flex-start;
+    justify-content: flex-end;
+    flex-direction: column;
+    padding-top: 105px;
+}
+
+#cute-me {
+    font-size: 12pt;
+    letter-spacing: 10pt;
+    text-align: left;
+    color: #18978F;
+    font-weight:500;
+}
+
+#smaller {
+    font-size: 8pt;
+    letter-spacing: 5pt;
+    text-align: left;
+    color: #18978F;
+}
+
+.all-clients {
+    display: flex;
+    flex-flow: row wrap-reverse;
+    flex: 1 3 100px;
+    justify-content:space-around;
+    align-content:space-around;
+    font-size: 12pt;
+    padding-top: 0;
+    /*border: 1px solid black;*/
+}
+/* END OF BODY */
+
+/* FOOTER */
+.contact {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-content: flex-start;
+   /* flex-grow: 1; */ 
+    align-items: center;
+    font-size:  10pt;
+    font-weight: 500;
+    letter-spacing: 6pt;
+}
+
+#copyright {
+    padding-right: 20px;
+    font-size:  7pt;
+    font-weight:400;
+    letter-spacing: 6pt;
+    color: #18978F;
+}
+
+.space {
+    padding-left: 20px;
+
+}
+
+.footer {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+/* END OF FOOTER */

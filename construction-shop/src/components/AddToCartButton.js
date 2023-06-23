@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 function AddToCartButton({ product, handleQuantityChange, addToCart }) {
   return (
@@ -12,7 +12,7 @@ function AddToCartButton({ product, handleQuantityChange, addToCart }) {
         min="0"
         defaultValue="0"
         onChange={(e) => handleQuantityChange(product.id, e.target.value)}
-        // style={{ width: 40, marginRight: 5 }}
+        style={{ width: 40, marginRight: 5 }}
       />
       <button onClick={() => addToCart(product)}>Add to Cart</button>
     </div>

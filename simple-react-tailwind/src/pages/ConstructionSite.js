@@ -3,70 +3,46 @@ import React, { useState } from 'react';
 import { Button } from 'flowbite-react';
 import AddToCartButton from '../components/AddToCartButton';
 
-import product1 from '../assets/images/product1.jpg';
+import product0 from '../assets/images/product0.png';
+import product1 from '../assets/images/product1.png';
+import product2 from '../assets/images/product2.png';
+import product3 from '../assets/images/product3.png';
 
 function ConstructionSite() {
 
   //declare products
   const [products, setProducts] = useState([
-    { id: 1, title: 'Product 1', price: 100.00, quantity: 0},
-    { id: 2, title: 'Product 2', price: 200.00, quantity: 0},
-    { id: 3, title: 'Product 3', price: 250.00, quantity: 0},
-    { id: 4, title: 'Product 4', price: 250.00, quantity: 0},
+    { id: 1, title: 'Product 1', price: 100.00, quantity: 0, image: product0},
+    { id: 2, title: 'Product 2', price: 200.00, quantity: 0, image: product1},
+    { id: 3, title: 'Product 3', price: 250.00, quantity: 0, image: product2},
+    { id: 4, title: 'Product 4', price: 250.00, quantity: 0, image: product3},
   ])
 
   const [cart, setCart] = useState([])
-    
-  // PLUS BUTTON
-  const incrementQuantity = (prodID) => {
-
-    setProducts((prevProducts) =>
-      prevProducts.map((product) =>
-        product.id === prodID
-        ? { ...product, quantity: product.quantity + 1 } : product
-      )
-    );
-    //console.log(products)
-  };
 
   //MINUS BUTTON
-  const decrementQuantity = (prodID) => {
-    setProducts((prevProducts) =>
-      prevProducts.map((product) =>
-        product.id === prodID && product.quantity > 0
-        ? { ...product, quantity: product.quantity - 1 } : product
-      )
-    );
-    //console.log(products)
-  };
+  const decrementQuantity = (product) => {
 
-  //ADD TO CART FUNC
-  const addToCart = (product) => {
-    const selectedProduct = products.find((p) => p.id === product.id);
-    const existingCartItem = cart.find((item) => item.productId === product.id);
+    const existingCartItem = cart.find((item) => item.productId === product.id); // from item.id === product to `item.productId === product.id`
   
     if (existingCartItem) {
+      // Increase the quantity
       const updatedCart = cart.map((item) =>
-        item.productId === product.id
-          ? { ...item, quantity: item.quantity + selectedProduct.quantity }
-          : item
+        item.productId === product.id ? { ...item, quantity: item.quantity - 1 } : item
       );
       setCart(updatedCart);
     } else {
-      setCart([...cart, { productId: product.id, quantity: selectedProduct.quantity }]);
+      // Add the selected new product to 1
+      const updatedCart = [...cart, { productId: product.id, quantity: 0 }]; // from { ...selectedProduct, quantity: 1 } to { productId: product.id, quantity: 1 }
+      setCart(updatedCart);
     }
-  
-    setProducts((prevProducts) =>
-    prevProducts.map((prevProduct) =>
-      prevProduct.id === product.id ? { ...prevProduct, quantity: 0 } : prevProduct
-    )
-  );
+  };
 
+  //ADD TO CART & PLUS BUTTON
+  const addToCart = (product) => {
 
-    /*Code Number 2
-    //const selectedProduct = products.find((product) => product.id === product);
     const existingCartItem = cart.find((item) => item.productId === product.id); // from item.id === product to `item.productId === product.id`
-
+  
     if (existingCartItem) {
       // Increase the quantity
       const updatedCart = cart.map((item) =>
@@ -78,33 +54,9 @@ function ConstructionSite() {
       const updatedCart = [...cart, { productId: product.id, quantity: 1 }]; // from { ...selectedProduct, quantity: 1 } to { productId: product.id, quantity: 1 }
       setCart(updatedCart);
     }
-
-    /*Code Number 3
-    
-    const selectedProduct = products.find((product) => product.id === productId.id)
-    console.log(`my input: ${productId.id} ${productId.title} ${productId.quantity}`)
-    console.log(selectedProduct.quantity)
-    console.log(`1st  Existing Cart Item: ${cart}`)
-    if (selectedProduct.quantity > 0) {
-      const existingCartItem = cart.find((item) => item.id == productId); 
-      console.log(`Existing Cart Item: ${cart}`) // cant identify
-      if (existingCartItem) {
-        const updatedCart = cart.map((item) =>
-          item.id === productId
-            ? { ...item, quantity: item.quantity + selectedProduct.quantity }
-            : item
-        );
-        setCart(updatedCart);
-        console.log(`Cart here: ${updatedCart}`)
-      } else {
-        setCart([...cart, { ...selectedProduct }]);
-        console.log(`New Cart here: ${cart}`)
-      }
-    }
-    setCart([...cart, { ...selectedProduct }]);
-    console.log(`New Cart here: ${cart}`)*/
     
   };
+
   
   //DISPLAY PRODUCTS
   const renderProducts = () => {
@@ -116,13 +68,13 @@ function ConstructionSite() {
       const rowProducts = products.slice(i, i + productsPerRow)
       const row = (
 
-        <main className="grid border-gray-200 dark:border-gray-700 md:mb-5 md:grid-cols-3" key={i}>  
+        <main className="grid border-gray-200 dark:border-gray-700 md:mb-5 md:grid-cols-3 gap-5" key={i}>  
           {rowProducts.map((product) => (
             <div className="grid mb-8">
                 <div className="bg-white p-4 shadow-md">
                   
                   <a href="#">
-                    <img class="p-8 rounded-t-lg" src={product1} alt="product image" /> {/*concat the src filename of image in i*/}
+                    <img class="p-8 rounded-t-lg" src={product.image} alt="product image" /> {/*concat the src filename of image in i*/}
                   </a>
 
                   <div class="px-5 pb-5">
@@ -139,20 +91,6 @@ function ConstructionSite() {
                     </div>
                     <div class="flex items-center justify-between" key={product.id} >
                       <span class="text-3xl font-bold text-gray-900 dark:text-white">${product.price}</span>
-                      <Button 
-                        className="mr-2 h-10 w-10"
-                        onClick={() => incrementQuantity(product.id)}>
-                        +
-                      </Button>
-                      <div 
-                        className="align align-content-between"
-                        >{product.quantity}
-                      </div>
-                      <Button 
-                        className="mr-2 h-10 w-10"
-                        onClick={() => decrementQuantity(product.id)}>
-                        -
-                      </Button>
                       <AddToCartButton product={product} addToCart={addToCart}/>
                     </div>
                   </div>
@@ -168,20 +106,128 @@ function ConstructionSite() {
     
   }
 
+  //CALCULATE TOTAL PRICE
+  const calculateTotalPrice = () => {
+    let total = 0;
+    cart.forEach((item) => {
+      const product = products.find((p) => p.id === item.productId);
+      total += product.price * item.quantity;
+    });
+    return total.toFixed(2); //2 decimal point
+  };
+
   // DISPLAY ITEMS ON CART
   const renderCartItems = () => {
-    return cart.map((item) => {
-      const product = products.find((p) => p.id == item.productId);
-      return (
-        <div key={item.productId}>
-          <h2>{product.title}</h2>
-          <p>Quantity: {item.quantity}</p>
-          <p>Price: ${product.price*item.quantity}</p>
-          <br/>
+    const productsPerRow = 3;
+    const rows = [];
+  
+    for (let i = 0; i < cart.length; i += productsPerRow) {
+      const rowProducts = cart.slice(i, i + productsPerRow);
+      const row = (
+        <div className="flex flex-wrap justify-content-evenly mx-auto gap-5" key={i}>
+          {rowProducts.map((item) => {
+            const product = products.find((p) => p.id == item.productId);
+            return (
+              <div
+                className="max-w-sm w-full md:w-1/3 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 mb-4"
+                key={item.productId}
+              >
+                <img
+                  className="rounded-t-lg"
+                  src={product.image}
+                  alt={product.title}
+                />
+  
+                <div className="p-5">
+                  <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                    {product.title}
+                  </h5>
+  
+                  <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                    Quantity: {item.quantity}
+                  </p>
+                  <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                    Price: ${product.price * item.quantity}
+                  </p>
+  
+                  <div className="flex items-center justify-between">
+                    <button
+                      type="button"
+                      className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                      onClick={() => addToCart(product)}
+                    >
+                      +
+                    </button>
+                    <div className="align align-content-between">
+                      {item.quantity}
+                    </div>
+                    <button
+                      type="button"
+                      className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                      onClick={() => decrementQuantity(product)}
+                    >
+                      -
+                    </button>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
         </div>
       );
-    });
-  }
+  
+      rows.push(row);
+    }
+  
+    return <div>{rows}</div>;
+  };
+  
+
+
+
+  // const renderCartItems = () => { 
+       
+  //       return cart.map((item) => {
+  //           const rows = []
+  //           const productsPerRow = 3
+
+  //         for (let i=0; i<cart.length; i += productsPerRow) {
+  //           const rowProducts = cart.slice(i, i + productsPerRow)
+  //         }
+  //           const product = products.find((p) => p.id == item.productId);
+  //           return (
+  //             <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+  //               <img class="rounded-t-lg" src={product.image} alt={product.title} />
+
+  //               <div class="p-5" key={item.productId}>
+  //                 <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{product.title}</h5>
+                
+  //                 <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Quantity: {item.quantity}</p>
+  //                 <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Price: ${product.price*item.quantity}</p>
+                  
+  //                 <div class="flex items-center justify-between" key={product.id} >
+  //                    <button 
+  //                     type="button"
+  //                     class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+  //                     onClick={() => addToCart(product)}>
+  //                      +
+  //                   </button>
+  //                   <div 
+  //                     className="align align-content-between"
+  //                     >{item.quantity}
+  //                   </div>
+  //                   <button 
+  //                     type="button"
+  //                     class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+  //                     onClick={() => decrementQuantity(product)}>
+  //                      -
+  //                   </button>
+  //                   </div>
+  //                 </div>
+  //           </div>
+  //         );
+  //     });
+  // }
 
   //display products
   return (
@@ -207,8 +253,17 @@ function ConstructionSite() {
 
         <main className="container mx-auto mt-8 px-8">
           {renderCartItems()}
+            <header className="relative bg-white shadow"> 
+              <div className="container mx-auto py-4 px-8">
+                <h1 className="text-2xl font-bold text-gray-800">Total Price: ${calculateTotalPrice()}</h1>
+              </div>
+              <div className="grid border-gray-200 dark:border-gray-700 md:mb-5 md:grid-cols-3">
+              <button variant="primary" class="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Checkout</button>
+              </div>
+            </header>
         </main>
 
+        
       </div>
 
     </>
